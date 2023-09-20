@@ -1,31 +1,34 @@
 <script lang="ts">
-	import { displayTroop, type Board, type Troop } from '$lib/chess'
-	import { board } from '$lib/stores'
+	import { displayTroop, type Board, type Troop, cmpTroops } from '$lib/chess'
+	import { board, heldTroop } from '$lib/stores'
 
 	let board_value: Board
+	let heldTroop_value: Troop | undefined
 
 	board.subscribe((value) => (board_value = value))
+	heldTroop.subscribe((value) => (heldTroop_value = value))
 
 	export let troop: Troop | undefined
 
 	//@ts-ignore
 	$: canMove = board_value.state.ToMove === troop?.color
-	let held = false
+
+	$: held = cmpTroops(heldTroop_value, troop)
 </script>
 
 <div class="troop">
 	<div
 		tabindex={canMove ? 0 : undefined}
 		role="button"
-		style:--cursor={canMove ? 'pointer' : 'default'}
+		style:cursor={canMove || heldTroop_value ? 'pointer' : 'default'}
 		on:click={() => {
 			if (canMove) {
-				held = held ? false : true
+				heldTroop.set(troop)
 			}
 		}}
 		on:keydown={(e) => {
 			if ((e.key === 'Enter' || e.key === ' ') && canMove) {
-				held = held ? false : true
+				heldTroop.set(troop)
 			}
 		}}
 		class:held
@@ -49,9 +52,6 @@
 		font-family: 'GNU Unifont';
 		user-select: none;
 		-webkit-user-select: none;
-	}
-	.troop > div:hover {
-		cursor: var(--cursor);
 	}
 
 	.held {

@@ -2,7 +2,6 @@
 	import Square from '$lib/components/square.svelte'
 	import Troop from '$lib/components/troop.svelte'
 	import { numberToFile, numberToRank, type Board } from '$lib/chess'
-	// import type { Board } from '$lib/chess'
 	import { getBoard } from '$lib/stores'
 
 	const [board, loading] = getBoard()
@@ -21,7 +20,10 @@
 			{#each [...Array(8).keys()] as y}
 				<div class="row">
 					{#each [...Array(8).keys()] as x}
-						<Square dark={(x + y) % 2 === 1}>
+						<Square
+							dark={(x + y) % 2 === 1}
+							position={{ file: numberToFile(x), rank: numberToRank(7 - y) }}
+						>
 							<Troop troop={board_value.squares[numberToFile(x)][numberToRank(7 - y)].troop} />
 						</Square>
 					{/each}

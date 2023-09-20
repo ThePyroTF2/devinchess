@@ -86,6 +86,7 @@ export function numberToRank(number: number): Rank {
 			throw new Error(`Invalid rank number: ${number}`)
 	}
 }
+
 export type Square = {
 	troop?: Troop
 	position: Position
@@ -100,6 +101,14 @@ export type Troop = {
 	piece: Piece
 	color: Color
 	position: Position
+}
+export function cmpTroops(left: Troop | undefined, right: Troop | undefined): boolean {
+	return (
+		left?.piece === right?.piece &&
+		left?.color === right?.color &&
+		left?.position.file === right?.position.file &&
+		left?.position.rank === right?.position.rank
+	)
 }
 
 export type Piece = 'Pawn' | 'Rook' | 'Knight' | 'Bishop' | 'Queen' | 'King'
@@ -131,12 +140,16 @@ export async function display(board: Board): Promise<string> {
 	return await response.text()
 }
 
-export async function moveTroop(start: Position, end: Position, board: Board) {
+export async function moveTroop(start: Position, end: Position, board: Board): Promise<Board> {
 	const response = await fetch(`${API_URL}/move-troop`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ start, end, board }),
 	})
+	if (response.status !== 200) {
+		throw new Error(await response.text())
+	}
+
 	return await response.json()
 }
 
