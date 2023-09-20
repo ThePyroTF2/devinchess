@@ -1,11 +1,37 @@
 <script lang="ts">
-	import { displayTroop, type Troop } from '$lib/chess'
+	import { displayTroop, type Board, type Troop } from '$lib/chess'
+	import { board } from '$lib/stores'
+
+	let board_value: Board
+
+	board.subscribe((value) => (board_value = value))
 
 	export let troop: Troop | undefined
+
+	//@ts-ignore
+	$: canMove = board_value.state.ToMove === troop?.color
+	let held = false
 </script>
 
 <div class="troop">
-	{troop?.piece ? displayTroop(troop.piece, troop.color) : ''}
+	<div
+		tabindex={canMove ? 0 : undefined}
+		role="button"
+		style:--cursor={canMove ? 'pointer' : 'default'}
+		on:click={() => {
+			if (canMove) {
+				held = held ? false : true
+			}
+		}}
+		on:keydown={(e) => {
+			if ((e.key === 'Enter' || e.key === ' ') && canMove) {
+				held = held ? false : true
+			}
+		}}
+		class:held
+	>
+		{troop?.piece ? displayTroop(troop.piece, troop.color) : ''}
+	</div>
 </div>
 
 <style>
@@ -21,8 +47,62 @@
 		align-items: center;
 		justify-content: center;
 		font-family: 'GNU Unifont';
-		font-size: 100px;
 		user-select: none;
 		-webkit-user-select: none;
+	}
+	.troop > div:hover {
+		cursor: var(--cursor);
+	}
+
+	.held {
+		opacity: 50%;
+		animation-name: wobble;
+		animation-iteration-count: infinite;
+		animation-duration: 0.3s;
+		transition: ease 0.3s;
+	}
+
+	@media only screen and (min-width: 650px) {
+		.held {
+			font-size: 100px;
+		}
+
+		.troop {
+			font-size: 87px;
+		}
+
+		@keyframes wobble {
+			0% {
+				transform: rotate(-5deg) translateY(-5px);
+			}
+			50% {
+				transform: rotate(5deg) translateY(-5px);
+			}
+			100% {
+				transform: rotate(-5deg) translateY(-5px);
+			}
+		}
+	}
+
+	@media only screen and (max-width: 649px) {
+		.held {
+			font-size: 15vw;
+		}
+
+		.troop {
+			font-size: 13vw;
+		}
+
+		@keyframes wobble {
+			0% {
+				transform: rotate(-5deg) translateY(-0.77vw);
+			}
+			50% {
+				transform: rotate(5deg) translateY(-0.77vw);
+			}
+			100% {
+				transform: rotate(-5deg) translateY(-0.77vw);
+			}
+		}
 	}
 </style>

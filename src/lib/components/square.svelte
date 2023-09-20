@@ -8,8 +8,20 @@
 
 <style>
 	.square {
-		width: 100px;
-		height: 100px;
 		background-color: var(--color);
+	}
+
+	@media only screen and (min-width: 650px) {
+		.square {
+			width: 75px;
+			height: 75px;
+		}
+	}
+
+	@media only screen and (max-width: 649px) {
+		.square {
+			width: 12vw;
+			height: 12vw;
+		}
 	}
 </style>
