@@ -3,6 +3,9 @@
 	<h1>Coming soon...</h1>
 	<h1>♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖</h1>
 </div>
+<a href="https://devinchess-git-development-thepyrotf2.vercel.app" class="dev-link"
+	>Visit development build</a
+>
 
 <style>
 	.container {
@@ -16,6 +19,16 @@
 
 	h1 {
 		margin: 0;
+	}
+
+	.dev-link {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		padding: 1rem;
+		font-family: 'GNU Unifont';
+		font-size: 1.5rem;
+		color: #000;
 	}
 
 	@font-face {
