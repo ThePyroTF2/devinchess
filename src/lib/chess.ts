@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000'
+const API_URL = 'https://rust-chess-api-yjy6hxgr2a-uk.a.run.app'
 
 export type File = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 export function fileToNumber(file: File): number {
