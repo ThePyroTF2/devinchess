@@ -134,7 +134,6 @@ export async function newBoard(): Promise<Board> {
 export async function display(board: Board): Promise<string> {
 	const response = await fetch(`${API_URL}/display`, {
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(board),
 	})
 	return await response.text()
@@ -143,7 +142,6 @@ export async function display(board: Board): Promise<string> {
 export async function moveTroop(start: Position, end: Position, board: Board): Promise<Board> {
 	const response = await fetch(`${API_URL}/move-troop`, {
 		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({ start, end, board }),
 	})
 	if (response.status !== 200) {
