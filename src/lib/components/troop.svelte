@@ -40,7 +40,7 @@
 <style>
 	@font-face {
 		font-family: 'GNU Unifont';
-		src: url('../unifont-15.0.01.otf') format('OpenType');
+		src: url('$lib/unifont-15.0.01.otf') format('OpenType');
 	}
 
 	.troop {
