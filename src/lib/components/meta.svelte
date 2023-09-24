@@ -2,7 +2,7 @@
 	import { page } from '$app/stores'
 	export let title: string
 	export let description: string
-	export let image = `${$page.url.origin}/favicon.png`
+	export let image = `${$page.url.origin}/og_image.png`
 	export let titleSuffix = 'Devinchess'
 	const titleWithSuffix = titleSuffix === title ? title : `${title} | ${titleSuffix}`
 </script>
