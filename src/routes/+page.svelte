@@ -1,5 +1,7 @@
 <div class="container">
+	<h1>♜ ♞ ♝ ♚ ♛ ♝ ♞ ♜</h1>
 	<h1>Coming soon...</h1>
+	<h1>♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖</h1>
 </div>
 
 <style>
@@ -10,6 +12,10 @@
 		justify-content: center;
 		height: 100vh;
 		font-family: 'GNU Unifont';
+	}
+
+	h1 {
+		margin: 0;
 	}
 
 	@font-face {
