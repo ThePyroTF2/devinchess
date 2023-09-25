@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type Position, type Troop, moveTroop, type Board } from '$lib/chess'
+	import { type Position, type Troop, moveTroop, rankToNumber, type Board } from '$lib/chess'
 	import { heldTroop, board } from '$lib/stores'
 
 	let heldTroop_value: Troop | undefined
@@ -30,7 +30,7 @@
 			try {
 				new_board = await moveTroop(heldTroop_value.position, position, board_value)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 				return
 			}
 			board.set(new_board)
@@ -43,7 +43,7 @@
 			try {
 				new_board = await moveTroop(heldTroop_value.position, position, board_value)
 			} catch (e) {
-				console.log(e)
+				console.error(e)
 				return
 			}
 			board.set(new_board)
@@ -51,10 +51,38 @@
 		}
 	}}
 >
+	{#if position.rank === 'One' && position.file !== 'A'}
+		<p class="label">{position.file}</p>
+	{/if}
+	{#if position.file === 'A' && position.rank !== 'One'}
+		<p class="label">{rankToNumber(position.rank)}</p>
+	{/if}
+	{#if position.rank === 'One' && position.file === 'A'}
+		<p class="label">A1</p>
+	{/if}
 	<slot />
 </div>
 
 <style>
+	@font-face {
+		font-family: 'GNU Unifont';
+		src: url('$lib/unifont-15.0.01.otf') format('OpenType');
+	}
+
+	.label {
+		z-index: 1;
+		font-family: 'GNU Unifont';
+		/* bottom-left of the square */
+		position: absolute;
+		transform: translateY(350%);
+		margin: 0;
+	}
+
+	slot {
+		z-index: 2;
+		position: absolute;
+	}
+
 	.square {
 		background-color: var(--color);
 	}

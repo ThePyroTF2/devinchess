@@ -1,4 +1,5 @@
 const API_URL = 'https://rust-chess-api-yjy6hxgr2a-uk.a.run.app'
+// const API_URL = 'http://127.0.0.1:8000'
 
 export type File = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 export function fileToNumber(file: File): number {
