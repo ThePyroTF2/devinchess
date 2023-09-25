@@ -74,7 +74,6 @@
 		font-family: 'GNU Unifont';
 		/* bottom-left of the square */
 		position: absolute;
-		transform: translateY(350%);
 		margin: 0;
 	}
 
@@ -92,12 +91,22 @@
 			width: 75px;
 			height: 75px;
 		}
+
+		.label {
+			transform: translateY(350%);
+			font-size: 16px;
+		}
 	}
 
 	@media only screen and (max-width: 649px) {
 		.square {
 			width: 12vw;
 			height: 12vw;
+		}
+
+		.label {
+			transform: translateY(9vw);
+			font-size: 3vw;
 		}
 	}
 </style>
