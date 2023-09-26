@@ -3,7 +3,7 @@
 	<h1>Coming soon...</h1>
 	<h1>♖ ♘ ♗ ♔ ♕ ♗ ♘ ♖</h1>
 </div>
-<a href="https://devinchess-git-development-thepyrotf2.vercel.app" class="dev-link"
+<a href="https://devinchess-git-development-justdeeevin.vercel.app" class="dev-link"
 	>Visit development build</a
 >
 
