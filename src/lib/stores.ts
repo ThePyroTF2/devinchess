@@ -1,5 +1,5 @@
 import { writable, type Writable } from 'svelte/store'
-import { newBoard, type Board, type Troop } from './chess'
+import { newBoard, validMoves, type Board, type Troop, type Square } from './chess'
 
 export const loading = writable(false)
 export const board = writable({} as Board)
@@ -19,3 +19,15 @@ export function getBoard(): [Writable<Board>, Writable<boolean>] {
 
 	return [board, loading]
 }
+
+let board_value: Board
+board.subscribe((value) => (board_value = value))
+export const validSquares = writable([] as Square[])
+
+heldTroop.subscribe(async (troop) => {
+	if (troop) {
+		validSquares.set(await validMoves(troop, board_value))
+	} else {
+		validSquares.set([])
+	}
+})

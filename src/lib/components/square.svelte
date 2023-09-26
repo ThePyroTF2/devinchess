@@ -1,9 +1,23 @@
 <script lang="ts">
-	import { type Position, type Troop, moveTroop, rankToNumber, type Board } from '$lib/chess'
-	import { heldTroop, board } from '$lib/stores'
+	import {
+		type Position,
+		type Troop,
+		type Square,
+		moveTroop,
+		rankToNumber,
+		type Board
+	} from '$lib/chess'
+	import { heldTroop, board, validSquares } from '$lib/stores'
 
 	let heldTroop_value: Troop | undefined
 	let board_value: Board
+	let valid = false
+
+	validSquares.subscribe((value) => {
+		valid = value.some(
+			(square) => square.position.file === position.file && square.position.rank === position.rank
+		)
+	})
 
 	heldTroop.subscribe((value) => (heldTroop_value = value))
 	board.subscribe((value) => (board_value = value))
@@ -16,7 +30,7 @@
 	role="button"
 	tabindex={heldTroop_value ? 0 : undefined}
 	class="square"
-	style:--color={dark ? 'Green' : 'White'}
+	style:--color={valid ? 'Yellow' : dark ? 'Green' : 'White'}
 	style:cursor={heldTroop_value ? 'pointer' : 'default'}
 	on:click={async () => {
 		if (

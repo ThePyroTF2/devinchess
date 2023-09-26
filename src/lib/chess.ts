@@ -168,3 +168,15 @@ export function displayTroop(piece: Piece, color: Color) {
 			return color === 'White' ? '♔' : '♚'
 	}
 }
+
+export async function validMoves(troop: Troop, board: Board): Promise<Square[]> {
+	const response = await fetch(`${API_URL}/valid-moves`, {
+		method: 'POST',
+		body: JSON.stringify({ troop, board }),
+	})
+	if (response.status !== 200) {
+		throw new Error(await response.text())
+	}
+
+	return await response.json()
+}
