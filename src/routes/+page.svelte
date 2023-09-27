@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Square from '$lib/components/square.svelte'
 	import Troop from '$lib/components/troop.svelte'
-	import { numberToFile, numberToRank, type Board } from '$lib/chess'
+	import { numberToFile, numberToRank, newBoard, type Board } from '$lib/chess'
 	import { getBoard } from '$lib/stores'
 
 	const [board, loading] = getBoard()
@@ -16,7 +16,7 @@
 	Loading...
 {:else}
 	<div class="row center page">
-		<div class="column">
+		<div class="column center">
 			{#each [...Array(8).keys()] as y}
 				<div class="row">
 					{#each [...Array(8).keys()] as x}
@@ -29,6 +29,11 @@
 					{/each}
 				</div>
 			{/each}
+			<button
+				class="reset"
+				on:click={async () => board.set(await newBoard())}
+				style:font-family="GNU Unifont">Reset</button
+			>
 		</div>
 	</div>
 {/if}
@@ -48,5 +53,18 @@
 	}
 	.page {
 		height: 100vh;
+	}
+
+	@media only screen and (max-width: 649px) {
+		.reset {
+			font-size: 5.2vw;
+			margin: 1.4vw;
+		}
+	}
+	@media only screen and (min-width: 650px) {
+		.reset {
+			font-size: 35px;
+			margin: 8px;
+		}
 	}
 </style>
