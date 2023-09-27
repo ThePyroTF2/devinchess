@@ -1,12 +1,5 @@
 <script lang="ts">
-	import {
-		type Position,
-		type Troop,
-		type Square,
-		moveTroop,
-		rankToNumber,
-		type Board
-	} from '$lib/chess'
+	import { type Position, type Troop, moveTroop, rankToNumber, type Board } from '$lib/chess'
 	import { heldTroop, board, validSquares } from '$lib/stores'
 
 	let heldTroop_value: Troop | undefined

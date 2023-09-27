@@ -22,13 +22,21 @@
 		role="button"
 		style:cursor={canMove || heldTroop_value ? 'pointer' : 'default'}
 		on:click={() => {
-			if (canMove) {
+			if (canMove && !held) {
 				heldTroop.set(troop)
+			}
+			if (held) {
+				heldTroop.set(undefined)
 			}
 		}}
 		on:keydown={(e) => {
-			if ((e.key === 'Enter' || e.key === ' ') && canMove) {
-				heldTroop.set(troop)
+			if (e.key === 'Enter' || e.key === ' ') {
+				if (canMove && !held) {
+					heldTroop.set(troop)
+				}
+				if (held) {
+					heldTroop.set(undefined)
+				}
 			}
 		}}
 		class:held
